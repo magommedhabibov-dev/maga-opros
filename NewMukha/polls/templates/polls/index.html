@@ -1,0 +1,50 @@
+{% extends 'polls/base.html' %}
+
+{% block title %}Опросы — Голос{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> Пространство для мнений</p>
+            <h1>Каждый голос<br>имеет значение.</h1>
+            <p class="hero-description">Выбирайте тему, делитесь своим мнением и смотрите, что думают другие.</p>
+            <a class="button button-dark" href="#poll-list">Выбрать опрос <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-note" aria-label="Голосование начинается с одного выбора">
+            <span class="note-mark" aria-hidden="true">“</span>
+            <p>Большие перемены начинаются с простого вопроса.</p>
+            <span class="note-caption">ВАШЕ МНЕНИЕ ВАЖНО</span>
+        </div>
+    </section>
+
+    <section class="poll-section" id="poll-list">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Выбирайте и участвуйте</p>
+                <h2>Открытые опросы</h2>
+            </div>
+            <span class="section-count">{{ latest_question_list|length|stringformat:"02d" }} опросов</span>
+        </div>
+
+        {% if latest_question_list %}
+            <div class="poll-list">
+                {% for question in latest_question_list %}
+                    <a class="poll-card" href="{% url 'polls:detail' question.id %}">
+                        <span class="poll-number">{{ forloop.counter|stringformat:"02d" }}</span>
+                        <span class="poll-card-copy">
+                            <span class="poll-date">{{ question.pub_date|date:"d.m.Y" }}</span>
+                            <span class="poll-title">{{ question.question_text }}</span>
+                        </span>
+                        <span class="poll-action">Участвовать <span aria-hidden="true">↗</span></span>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <span class="empty-icon" aria-hidden="true">✳</span>
+                <h3>Пока нет открытых опросов</h3>
+                <p>Загляните позже — новые вопросы скоро появятся.</p>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

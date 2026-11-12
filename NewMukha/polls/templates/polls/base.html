@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f4ef">
+    <title>{% block title %}Голос — опросы и мнения{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'polls/site.css' %}">
+</head>
+<body>
+    <div class="site-shell">
+        <header class="site-header">
+            <a class="brand" href="{% url 'polls:index' %}" aria-label="Голос — на главную">
+                <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>голос<span class="brand-period">.</span></span>
+            </a>
+            <span class="header-note">Место, где слышат каждого</span>
+            <a class="header-link" href="{% url 'polls:index' %}">Опросы <span aria-hidden="true">↗</span></a>
+        </header>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="site-footer">
+            <a class="brand footer-brand" href="{% url 'polls:index' %}">голос<span class="brand-period">.</span></a>
+            <span>Ваше мнение формирует будущее.</span>
+        </footer>
+    </div>
+</body>
+</html>
